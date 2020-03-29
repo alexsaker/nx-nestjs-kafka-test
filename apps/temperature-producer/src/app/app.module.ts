@@ -11,21 +11,21 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         name: 'LOCATION_SERVICE',
         transport: Transport.KAFKA,
         options: {
-          subscribe: { fromBeginning: true },
           client: {
-            clientId: 'api',
+            clientId: 'location',
             brokers: [
               '192.168.99.100:29092',
               '192.168.99.100:29093',
               '192.168.99.100:29094',
             ],
           },
-          consumer: {
+          producer: {
             allowAutoTopicCreation: true,
-            readUncommitted: true,
-            heartbeatInterval: 10,
-            groupId: 'location-consumer-api',
           },
+          // consumer: {
+          //   allowAutoTopicCreation: true,
+          //   groupId: 'location-consumer'
+          // }
         },
       },
     ]),

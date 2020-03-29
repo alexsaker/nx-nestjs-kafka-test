@@ -7,7 +7,6 @@ import { NestFactory } from '@nestjs/core';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 
 import { AppModule } from './app/app.module';
-
 export const kafkaMicroServiceOption: MicroserviceOptions = {
   transport: Transport.KAFKA,
   options: {
@@ -26,12 +25,14 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   app.connectMicroservice(kafkaMicroServiceOption);
-  const port = process.env.port || 3333;
+
+  const port = process.env.port || 5001;
   await app.listen(port, () => {
     console.log('Listening at http://localhost:' + port + '/' + globalPrefix);
   });
   app.startAllMicroservices(() => {
-    console.log('Starting kafka temperature consumer microservice');
+    console.log('Starting kafka temperature producer microservice');
   });
 }
+
 bootstrap();
