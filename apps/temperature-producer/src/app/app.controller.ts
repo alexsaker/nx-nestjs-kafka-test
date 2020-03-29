@@ -22,7 +22,6 @@ export class AppController implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    // this.client.subscribeToResponseOf('location');
     await this.client.connect();
   }
 
