@@ -1,0 +1,28 @@
+{
+  "npmScope": "nx-nestjs-kafka-project",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "kafka-project": {
+      "tags": []
+    },
+    "kafka-project-e2e": {
+      "tags": [],
+      "implicitDependencies": ["kafka-project"]
+    },
+    "api": {
+      "tags": []
+    },
+    "api-interfaces": {
+      "tags": []
+    }
+  }
+}
