@@ -205,6 +205,61 @@
           }
         }
       }
+    },
+    "temperature-producer": {
+      "root": "apps/temperature-producer",
+      "sourceRoot": "apps/temperature-producer/src",
+      "projectType": "application",
+      "prefix": "temperature-producer",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/temperature-producer",
+            "main": "apps/temperature-producer/src/main.ts",
+            "tsConfig": "apps/temperature-producer/tsconfig.app.json",
+            "assets": ["apps/temperature-producer/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/temperature-producer/src/environments/environment.ts",
+                  "with": "apps/temperature-producer/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "temperature-producer:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/temperature-producer/tsconfig.app.json",
+              "apps/temperature-producer/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/temperature-producer/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/temperature-producer/jest.config.js",
+            "tsConfig": "apps/temperature-producer/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
