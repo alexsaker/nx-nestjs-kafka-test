@@ -32,13 +32,11 @@ export class AppController implements OnModuleInit {
   }
 
   @Post('location')
-  async addTemperatureData(@Body() location: Location): Observable<Location> {
+  addTemperatureData(@Body() location: Location): Observable<Location> {
     this.logger.log(
       `Receiving temperature and sending data to kafka topic location:`
     );
     this.logger.log(location);
-    this.client.emit<Location>('location', location).pipe(take(1)).subscribe();
-
-    return of(location);
+    return this.client.emit<Location>('location', location).pipe(take(1));
   }
 }
