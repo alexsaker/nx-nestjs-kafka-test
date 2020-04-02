@@ -27,11 +27,10 @@ async function bootstrap() {
   app.connectMicroservice(kafkaMicroServiceOption);
 
   const port = process.env.port || 5001;
+  app.startAllMicroservicesAsync();
+  console.log('Starting kafka temperature producer microservice');
   await app.listen(port, () => {
     console.log('Listening at http://localhost:' + port + '/' + globalPrefix);
-  });
-  app.startAllMicroservices(() => {
-    console.log('Starting kafka temperature producer microservice');
   });
 }
 

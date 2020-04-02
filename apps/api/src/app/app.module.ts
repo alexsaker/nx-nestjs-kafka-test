@@ -3,15 +3,17 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
+    EventsModule,
     ClientsModule.register([
       {
         name: 'LOCATION_SERVICE',
         transport: Transport.KAFKA,
         options: {
-          subscribe: { fromBeginning: true },
+          subscribe: { fromBeginning: false },
           client: {
             clientId: 'api',
             brokers: [
@@ -22,8 +24,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
           },
           consumer: {
             allowAutoTopicCreation: true,
-            readUncommitted: true,
-            heartbeatInterval: 10,
+            readUncommitted: false,
             groupId: 'location-consumer-api',
           },
         },

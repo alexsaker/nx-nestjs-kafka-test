@@ -36,6 +36,9 @@ export class AppController implements OnModuleInit {
       `Receiving temperature and sending data to kafka topic location:`
     );
     this.logger.log(location);
-    return this.client.emit<Location>('location', location).pipe(take(1));
+    return this.client.emit<Location>('location', location).pipe(
+      take(1),
+      map((_) => location)
+    );
   }
 }
